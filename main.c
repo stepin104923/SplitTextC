@@ -1,4 +1,4 @@
-#include "test_factorial.h"
+#include "test_split_text.h"
 
 int main(void)
 {

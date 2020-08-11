@@ -1,13 +1,13 @@
 SRC = unity/unity.c\
-src/factorial.c\
-test/test_factorial.c\
+src/split_text.c\
+test/test_split_text.c\
 main.c
 
 INC = -Iunity\
 -Iinc\
 -Itest
 
-PROJECT_NAME = FACTORIAL.out
+PROJECT_NAME = split_text.out
 
 $(PROJECT_NAME): $(SRC)
 	gcc -g $(SRC) $(INC) -o $(PROJECT_NAME)
