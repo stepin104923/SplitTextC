@@ -13,16 +13,27 @@ void tearDown()
 
 }
 
+void compare_pcs(char** expected, char** actual)
+{
+	int i;
+	for(i = 0; expected[i] != NULL; i++) {
+		TEST_ASSERT_EQUAL_STRING(expected[i], actual[i]);
+	}
+	TEST_ASSERT_EQUAL(expected[i], actual[i]);
+}
+
 /* Test for general text splitting*/
 void test_split_text(void)
 {
 	char *test_str = "my_name_is_edcast_future_skills";
 	char *test_pcs[] = { "my", "name", "is", "edcast", "future", "skills", NULL};
 
-	char **pcs;
+	char **pcs = split_text(test_str);
 
 	// Test Split
-	// TODO : Compare pcs & test_pcs
+	compare_pcs(test_pcs, pcs);
+
+	free_pieces(pcs);
 }
 
 /*  Test for non-mutablility of input  */
