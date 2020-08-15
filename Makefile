@@ -25,7 +25,7 @@ testmem: build
 	valgrind ./${EXEC_FILE}
 
 testall: build
-	valgrind -v --log-file=${VALGRIND_LOG}log ./${EXEC_FILE} | tee ${UNITY_LOG}
+	valgrind -v --log-file=${VALGRIND_LOG} ./${EXEC_FILE} | tee ${UNITY_LOG}
 
 gdb: build
 	gdb ${EXEC_FILE}

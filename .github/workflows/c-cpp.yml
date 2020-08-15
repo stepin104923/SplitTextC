@@ -11,15 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install Valgrind
+      run: sudo apt -y install valgrind
     - name: test
       run: make testall
-    - name: Upload Unity Log
+    - name: Upload Logs
       uses: actions/upload-artifact@v2.1.4
       with:
-        name: Unity Log
-        path: unity.log
-    - name: Upload Valgrind Log
-      uses: actions/upload-artifact@v2.1.4
-      with:
-        name: Valgrind Log
-        path: valgrind.log
+        name: Logs
+        path: ./*.log
