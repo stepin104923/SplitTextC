@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include "unity.h"
 #include "split_text.h"
@@ -40,6 +41,7 @@ void test_split_text(void)
 	compare_pcs(test_pcs, pcs);
 
 	free_pieces(pcs);
+	free(test_str);
 }
 
 /*  Test for non-mutablility of input  */
@@ -55,6 +57,7 @@ void test_mutability(void)
 	TEST_ASSERT_EQUAL_STRING(test_str, test_str_copy);
 
 	free_pieces(pcs);
+	free(test_str);
 }
 
 /* Test for handling successive delimitters */
@@ -73,6 +76,7 @@ void test_double_delim(void)
 	compare_pcs(test_pcs, pcs);
 
 	free_pieces(pcs);
+	free(test_str);
 }
 
 void test_delim_at_ends(void)
@@ -99,6 +103,8 @@ void test_delim_at_ends(void)
 
 	free_pieces(pcs_a);
 	free_pieces(pcs_b);
+	free(test_str_a);
+	free(test_str_b);
 }
 
 /* Test for handling string consisting only of delimitters */
@@ -117,6 +123,7 @@ void test_delim_only(void)
 	compare_pcs(test_pcs, pcs);
 
 	free_pieces(pcs);
+	free(test_str);
 }
 
 /* Test for handling alternating delimiter */
@@ -135,6 +142,7 @@ void test_delim_alternating(void)
 	compare_pcs(test_pcs, pcs);
 
 	free_pieces(pcs);
+	free(test_str);
 }
 
 /* Test for handling abscence of delimitters */
@@ -153,6 +161,7 @@ void test_none(void)
 	compare_pcs(test_pcs, pcs);
 
 	free_pieces(pcs);
+	free(test_str);
 }
 
 int test_main(void)
