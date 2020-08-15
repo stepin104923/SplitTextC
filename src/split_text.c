@@ -41,34 +41,43 @@ int get_pieces_count(char *text)
 char** split_text(char *text)
 {
 	char **broken = NULL;
-	char *l_ptr = text, *t_ptr = text;
+	char * prev;
 	int index = 0;
 	size_t w_size;
 	int pieces_count = get_pieces_count(text);
 
 	broken = calloc(pieces_count + 1, sizeof(char*));
-	while(t_ptr != NULL && *t_ptr != '\0')
+	do
 	{
-		if(*t_ptr == delim)
+		// set start of current selection
+		prev = text;
+		// find next delimiter
+		text = strchr(text, delim);
+		// If not end of string
+		if (text != NULL)
 		{
-			if(t_ptr - l_ptr == sizeof(char))
+			// If some characters were selected
+			if (text - prev > 0)
 			{
-				// broken = realloc(broken, --pieces_count + 1);
-			} else {
-				w_size = t_ptr - l_ptr;
+				w_size = text - prev;
 				broken[index] = malloc(w_size + 1);
-				strncpy(broken[index], l_ptr, w_size);
+				strncpy(broken[index], prev, w_size);
+				// Increment index
 				index++;
 			}
-			l_ptr = t_ptr + 1;
-			t_ptr = l_ptr;
-		} else {
-			t_ptr++;
+			// Or proceed
 		}
+		// finally move text pointer
+	} while (text != NULL && ++text);
+
+	// If last part is word
+	w_size = strlen(prev);
+	if (w_size > 0)
+	{
+		// Copy that too
+		broken[index] = malloc(w_size + 1);
+		strncpy(broken[index], prev, w_size);
 	}
-	w_size = t_ptr - l_ptr;
-	broken[index] = malloc(w_size + 1);
-	strncpy(broken[index], l_ptr, w_size);
 
 	return broken;
 }
