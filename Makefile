@@ -7,19 +7,31 @@ INC = -Iunity\
 -Iinc\
 -Itest
 
-PROJECT_NAME = FACTORIAL.out
+EXEC_FILE = test.out
+UNITY_LOG = unity.log
+VALGRIND_LOG = valgrind.log
 
-$(PROJECT_NAME): $(SRC)
-	gcc -g $(SRC) $(INC) -o $(PROJECT_NAME)
+.PHONY: build test testmem testall gdb doc clean
 
-run:$(PROJECT_NAME)
-	./${PROJECT_NAME}
+$(EXEC_FILE): $(SRC)
+	gcc $^ $(INC) -o $@
 
-gdb:$(PROJECT_NAME)
-	gdb ${PROJECT_NAME}
+build: $(EXEC_FILE)
+
+test: build
+	./${EXEC_FILE}
+
+testmem: build
+	valgrind ./${EXEC_FILE}
+
+testall: build
+	valgrind -v --log-file=${VALGRIND_LOG}log ./${EXEC_FILE} | tee ${UNITY_LOG}
+
+gdb: build
+	gdb ${EXEC_FILE}
 
 doc:
 	make -C documentation
 
 clean:
-	rm -rf $(PROJECT_NAME) documentation/html
+	rm -rf *.out *.log documentation/html

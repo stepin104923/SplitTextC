@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test
+      run: make testall
+    - name: Upload Unity Log
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        name: Unity Log
+        path: unity.log
+    - name: Upload Valgrind Log
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        name: Valgrind Log
+        path: valgrind.log
