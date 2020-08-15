@@ -1,6 +1,7 @@
 #include <string.h>
 #include "unity.h"
 #include "split_text.h"
+#include "split_text_internal.h"
 
 /* Required by the unity test framework */
 void setUp()
@@ -30,6 +31,9 @@ void test_split_text(void)
 	char *test_pcs[] = { "my", "name", "is", "edcast", "future", "skills", NULL};
 
 	char **pcs;
+
+	// Test Pieces Count Detection
+	TEST_ASSERT_EQUAL_INT32(6, get_pieces_count(test_str));
 
 	// Test Split
 	pcs = split_text(test_str);
@@ -61,6 +65,9 @@ void test_double_delim(void)
 
 	char **pcs;
 
+	// Test Pieces Count Detection
+	TEST_ASSERT_EQUAL_INT32(6, get_pieces_count(test_str));
+
 	// Test Consistency for multiple delimiters
 	pcs = split_text(test_str);
 	compare_pcs(test_pcs, pcs);
@@ -76,9 +83,15 @@ void test_delim_at_ends(void)
 
 	char **pcs_a, **pcs_b;
 
+	// Test Pieces Count Detection A
+	TEST_ASSERT_EQUAL_INT32(6, get_pieces_count(test_str_a));
+
 	// Test Split A
 	pcs_a = split_text(test_str_a);
 	compare_pcs(test_pcs, pcs_a);
+
+	// Test Pieces Count Detection B
+	TEST_ASSERT_EQUAL_INT32(6, get_pieces_count(test_str_b));
 	
 	// Test Split B
 	pcs_b = split_text(test_str_b);
@@ -96,6 +109,9 @@ void test_delim_only(void)
 
 	char **pcs;
 
+	// Test Pieces Count Detection
+	TEST_ASSERT_EQUAL_INT32(0, get_pieces_count(test_str));
+
 	// Test Consistency for string with delimiters only
 	pcs = split_text(test_str);
 	compare_pcs(test_pcs, pcs);
@@ -110,6 +126,9 @@ void test_none(void)
 	char *test_pcs[] = { "my name is edcast future skills", NULL};
 
 	char **pcs;
+
+	// Test Pieces Count Detection
+	TEST_ASSERT_EQUAL_INT32(1, get_pieces_count(test_str));
 
 	// Test Consistency for string with delimiters only
 	pcs = split_text(test_str);

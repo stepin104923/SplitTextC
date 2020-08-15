@@ -4,7 +4,7 @@
 
 const char delim = '_';
 
-int get_char_count(char *text, char delim)
+int get_pieces_count(char *text)
 {
 	int count = 0;
 	do
@@ -20,8 +20,8 @@ char** split_text(char *text)
 	char *l_ptr = text, *t_ptr = text;
 	int index = 0;
 	size_t w_size;
-	int pieces_count = get_char_count(text, delim) + 1;
-	
+	int pieces_count = get_pieces_count(text);
+
 	broken = calloc(pieces_count + 1, sizeof(char*));
 	while(t_ptr != NULL && *t_ptr != '\0')
 	{
