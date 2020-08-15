@@ -119,6 +119,24 @@ void test_delim_only(void)
 	free_pieces(pcs);
 }
 
+/* Test for handling alternating delimiter */
+void test_delim_alternating(void)
+{
+	char *test_str = strdup("Are_you_C_R_A_Z_Y_?");
+	char *test_pcs[] = { "Are", "you", "C", "R", "A", "Z", "Y", "?", NULL};
+
+	char **pcs;
+
+	// Test Pieces Count Detection
+	TEST_ASSERT_EQUAL_INT32(8, get_pieces_count(test_str));
+
+	// Test Consistency for multiple delimiters
+	pcs = split_text(test_str);
+	compare_pcs(test_pcs, pcs);
+
+	free_pieces(pcs);
+}
+
 /* Test for handling abscence of delimitters */
 void test_none(void)
 {
@@ -148,6 +166,7 @@ int test_main(void)
 	RUN_TEST(test_double_delim);
 	RUN_TEST(test_delim_at_ends);
 	RUN_TEST(test_delim_only);
+	RUN_TEST(test_delim_alternating);
 	RUN_TEST(test_none);
 
 	/* Close the Unity Test Framework */
