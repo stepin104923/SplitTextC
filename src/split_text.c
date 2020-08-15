@@ -7,10 +7,28 @@ const char delim = '_';
 int get_pieces_count(char *text)
 {
 	int count = 0;
+	char * prev;
 	do
 	{
+		// set start of current selection
+		prev = text;
+		// find next delimiter
 		text = strchr(text, delim);
-	} while (text != NULL && ++count && ++text);
+		// If not end of string
+	} while (text != NULL && (
+		// If some characters were selected
+		text - prev != 0
+		// Increment count
+		&& ++count
+		// Or proceed
+		|| 1
+	// finally move text pointer
+	) && ++text);
+
+	// If last part is word, add it to count
+	if (strlen(prev) > 0)
+		count++;
+
 	return count;
 }
 
