@@ -15,19 +15,25 @@ int get_pieces_count(char *text)
 		// find next delimiter
 		text = strchr(text, delim);
 		// If not end of string
-	} while (text != NULL && (
-		// If some characters were selected
-		text - prev != 0
-		// Increment count
-		&& ++count
-		// Or proceed
-		|| 1
-	// finally move text pointer
-	) && ++text);
+		if (text != NULL)
+		{
+			// If some characters were selected
+			if (text - prev > 0)
+			{
+				// Increment count
+				count++;
+			}
+			// Or proceed
+		}
+		// finally move text pointer
+	} while (text != NULL && ++text);
 
-	// If last part is word, add it to count
+	// If last part is word
 	if (strlen(prev) > 0)
+	{
+		// Increment count
 		count++;
+	}
 
 	return count;
 }
