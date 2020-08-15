@@ -9,7 +9,6 @@
 /**
 * Finds the number of pieces a text will be split into by the delimiter `_`
 * @param[in] text String to be split
-* @param[in] delim delimiter to seperate string with
 * @return Number of pieces
 * @note This subroutine does not mutate the input string
 */
