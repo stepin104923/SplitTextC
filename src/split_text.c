@@ -62,6 +62,7 @@ char** split_text(char *text)
 				w_size = text - prev;
 				broken[index] = malloc(w_size + 1);
 				strncpy(broken[index], prev, w_size);
+				broken[index][w_size] = '\0';
 				// Increment index
 				index++;
 			}
@@ -77,6 +78,7 @@ char** split_text(char *text)
 		// Copy that too
 		broken[index] = malloc(w_size + 1);
 		strncpy(broken[index], prev, w_size);
+		broken[index][w_size] = '\0';
 	}
 
 	return broken;
